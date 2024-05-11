@@ -9,23 +9,17 @@ import {
 
 import Home from "./routes/HomePage";
 import ErrorPage from "./routes/ErrorPage";
-import { test } from "./utils/fsm/lib/fsm";
-test();
+import { FSM_PAGES } from "./utils/common";
+import TrafficPage from "./routes/TrafficPage";
+import TriviaPage from "./routes/TriviaPage";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
-    //   <Route
-    //   path="/"
-    //   element={<Root />}
-    //   loader={rootLoader}
-    //   action={rootAction}
-    //   errorElement={<ErrorPage />}
-    // >
     <Route errorElement={<ErrorPage />}>
-      {/* <Route index element={<Index />} /> */}
-
+      <Route path={FSM_PAGES.trafficLight.to} element={<TrafficPage />} />
+      <Route path={FSM_PAGES.trivia.to} element={<TriviaPage />} />
       <Route path="/" element={<Home />} />
     </Route>
-    // </Route>
   )
 );
 

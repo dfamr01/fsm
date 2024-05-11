@@ -1,6 +1,4 @@
-import { FCM } from "../../utils/fsm";
-
-const Trivia = ({}) => {
+const TriviaPage = ({}) => {
   return (
     <>
       <div>Trivia</div>
@@ -8,4 +6,4 @@ const Trivia = ({}) => {
   );
 };
 
-export default Trivia;
+export default TriviaPage;

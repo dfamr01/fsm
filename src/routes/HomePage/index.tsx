@@ -1,60 +1,65 @@
-import { createMachine } from "../../utils/fsm/lib/fsm";
-import { useMachine } from "../../utils/fsm/lib/fsm.hooks";
-const stopLight = createMachine({
-  context: "",
-  id: "stopLight",
-  initial: "green",
-  states: {
-    green: {
-      // _onEnter is a special handler that is invoked
-      // immediately as the FSM transitions into the new state
-      _onEnter: function () {
-        const timer = setTimeout(() => {
-          this.transition("yellow");
-          clearTimeout(timer);
-        }, 3000);
-        this.assign("green");
-      },
-      // _onExit is a special handler that is invoked just before
-      // the FSM leaves the current state and transitions to another
-      _onExit: function () {
-        console.log("exit green");
-      },
-    },
-    yellow: {
-      _onEnter: function () {
-        this.assign("yellow");
+import { Link } from "react-router-dom";
 
-        const timer = setTimeout(() => {
-          this.transition("red");
-          clearTimeout(timer);
-        }, 3000);
+import { styled } from "@mui/material/styles";
+import { Typography, ButtonGroup, Button, Paper, Box } from "@mui/material";
+import { FSM_PAGES } from "../../utils/common";
+import { theme } from "../../styles/theme";
 
-        // this.emit("value", { status: GREEN });
-      },
-      _onExit: function () {},
-    },
-    red: {
-      _onEnter: function () {
-        this.assign("red");
+const Title = styled("div")`
+  margin: 0 auto 5px;
+  font-size: 25px;
+  text-align: center;
+  user-select: none;
+  color: ${theme.color.teal};
+  flex: none;
+`;
 
-        const timer = setTimeout(() => {
-          this.reset();
-          clearTimeout(timer);
-        }, 3000);
-      },
+const ButtonGroupWrap = styled(ButtonGroup)`
+  width: 100%;
+  .accountMenu {
+    border-bottom: 2px solid #727272;
+    :last-child {
+      border-bottom: none;
+    }
+  }
+`;
 
-      _onExit: function () {},
-    },
-  },
-});
-stopLight.start();
+const ButtonWrap = styled(Button)`
+  background-color: #3c3c3c;
+  padding: 15px 5px;
+  &:focus,
+  &:active {
+    background-color: #2a2a2a;
+  }
+  &:hover {
+    background-color: #636363;
+  }
+`;
+
 // stopLight.assign()
 const Home = ({}) => {
-  const [state, value] = useMachine(stopLight);
   return (
     <>
-      <div style={{ backgroundColor: value }}>{state}</div>
+      <Title>Welcome to David's FSM demo</Title>
+      <ButtonGroupWrap
+        orientation="vertical"
+        aria-label="vertical outlined button group"
+      >
+        {Object.values(FSM_PAGES).map(({ caption, to }) => {
+          return (
+            <ButtonWrap
+              key={caption}
+              className={"accountMenu"}
+              component={Link}
+              to={to}
+              variant="contained"
+              color="primary"
+            >
+              {caption}
+            </ButtonWrap>
+          );
+        })}
+      </ButtonGroupWrap>
     </>
   );
 };
