@@ -1,26 +1,31 @@
-import { DotLottiePlayer } from "@dotlottie/react-player";
-import "@dotlottie/react-player/dist/index.css";
+import { DotLottie, DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+interface IProps {
+  src: string;
+  refCallBack: (_: DotLottie) => void;
+  autoplay: boolean;
+  loop: boolean;
+}
 
 const LottiePlayer = ({
-  ref,
-  url = "",
+  src = "",
+  refCallBack,
   autoplay = true,
   loop = true,
   ...props
-}) => {
+}: IProps) => {
+  const dotLottieRefCallback = (dotLottie: DotLottie) => {
+    refCallBack(dotLottie);
+  };
+
   return (
-    <div>
-      <DotLottiePlayer
-        ref={ref}
-        src={url}
-        autoplay={autoplay}
-        loop={loop}
-        {...props}
-      >
-        {/* <DotLottiePlayer src="../../assets/car.json" autoplay loop> */}
-        {/* <Controls /> */}
-      </DotLottiePlayer>
-    </div>
+    <DotLottieReact
+      {...props}
+      src={src}
+      loop={loop}
+      autoplay={autoplay}
+      dotLottieRefCallback={dotLottieRefCallback}
+    />
   );
 };
 

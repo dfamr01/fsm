@@ -4,8 +4,8 @@ import { createMachine, useMachine } from "../../utils/fsm";
 import { Box } from "@mui/material";
 import PageWrapper from "../../components/PageWrapper";
 import LottiePlayer from "../../components/LottiePlayer";
-import { PlayerEvents } from "@dotlottie/react-player";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+import { DotLottie } from "@lottiefiles/dotlottie-react";
 
 const Wrapper = styled(Box)`
   display: flex;
@@ -15,6 +15,7 @@ const TrafficLightBG = styled(Box)`
   background-color: black;
   border-radius: 10px;
   padding: 2px;
+  height: min-content;
 `;
 
 const TrafficLight = styled(Box)`
@@ -32,17 +33,6 @@ const stopLight = createMachine({
   id: "stopLight",
   initial: "green",
   states: {
-    uninitialized: {
-      _onEnter() {
-        this.assign("");
-        const timer = setTimeout(() => {
-          this.start();
-
-          // this.transition("green");
-          clearTimeout(timer);
-        }, 400);
-      },
-    },
     green: {
       // _onEnter is a special handler that is invoked
       // immediately as the FSM transitions into the new state
@@ -52,7 +42,7 @@ const stopLight = createMachine({
         const timer = setTimeout(() => {
           this.transition("yellow");
           clearTimeout(timer);
-        }, 1500);
+        }, TRANSITION_TIME);
       },
       // _onExit is a special handler that is invoked just before
       // the FSM leaves the current state and transitions to another
@@ -67,7 +57,7 @@ const stopLight = createMachine({
         const timer = setTimeout(() => {
           this.transition("red");
           clearTimeout(timer);
-        }, 1100);
+        }, TRANSITION_TIME);
       },
       _onExit: function () {},
     },
@@ -76,11 +66,9 @@ const stopLight = createMachine({
         this.assign("red");
 
         const timer = setTimeout(() => {
-          this.transition("uninitialized");
-
-          // this.start();
+          this.start();
           clearTimeout(timer);
-        }, 1100);
+        }, TRANSITION_TIME);
       },
 
       _onExit: function () {},
@@ -90,46 +78,49 @@ const stopLight = createMachine({
 
 stopLight.start();
 
-const TrafficPage = ({}) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, value, transition] = useMachine(stopLight);
-  const playerRef = useRef(null);
-  // const [playerRef, setPlayerRef] = useState(null);
+const TrafficPage = () => {
+  const [, value] = useMachine(stopLight);
+  const [playerRef, setPlayerRef] = useState<DotLottie>();
 
   useEffect(() => {
-    if (value === "red") {
-      playerRef.current?.stop();
+    if (!playerRef) {
+      return;
     }
-  }, [value]);
+    if (value === "red") {
+      playerRef?.pause();
+    }
+    if (value === "yellow") {
+      playerRef?.setSpeed(0.3);
+    }
+    if (value === "green") {
+      playerRef?.setSpeed(1);
+
+      playerRef?.play();
+    }
+  }, [playerRef, value]);
 
   return (
     <PageWrapper>
       <Wrapper>
+        <LottiePlayer
+          refCallBack={setPlayerRef}
+          src={
+            "https://livly-bucket.sfo3.digitaloceanspaces.com/yellowCar.json"
+          }
+          autoplay={false}
+          loop={false}
+        />
         <TrafficLightBG>
-          <TrafficLight style={{ backgroundColor: value === "red" && value }} />
           <TrafficLight
-            style={{ backgroundColor: value === "yellow" && value }}
+            style={{ backgroundColor: value === "red" ? value : "" }}
           />
           <TrafficLight
-            style={{ backgroundColor: value === "green" && value }}
+            style={{ backgroundColor: value === "yellow" ? value : "" }}
+          />
+          <TrafficLight
+            style={{ backgroundColor: value === "green" ? value : "" }}
           />
         </TrafficLightBG>
-        <LottiePlayer
-          ref={playerRef}
-          onEvent={(event: PlayerEvents) => {
-            console.log("🚀 ~ TrafficPage ~ event:", event);
-
-            if (event === PlayerEvents.LoopComplete) {
-              // transition("uninitialized");
-              console.log("🚀 ~ TrafficPage ~ event222:", event);
-            }
-          }}
-          url={
-            "https://lottie.host/96bf00d6-8779-45ee-b9dd-3c7ab08ca80b/YsGp1R258a.json"
-
-            // "https://lottie.host/855794a9-d03d-4ec0-868f-fdcaa1a065af/KQ3r5VPEyn.json"
-          }
-        />
       </Wrapper>
     </PageWrapper>
   );
