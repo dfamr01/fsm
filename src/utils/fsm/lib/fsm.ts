@@ -19,9 +19,7 @@ export interface IFsmInput<TContext> {
   states: Record<string, IStates<TContext>>;
 }
 
-export type TAssign<TContext> =
-  | TContext
-  | ((value: TContext | undefined) => TContext);
+type TAssign<TContext> = TContext | ((value: TContext | undefined) => TContext);
 
 export class Fsm<TContext> extends EventEmitter {
   private stateMachine;
@@ -77,8 +75,6 @@ export class Fsm<TContext> extends EventEmitter {
       this.value = value;
     }
   }
-
-  //   send() {}
 
   get id() {
     return this.stateMachine.id;
