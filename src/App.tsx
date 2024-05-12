@@ -9,7 +9,7 @@ import {
 
 import Home from "./routes/HomePage";
 import ErrorPage from "./routes/ErrorPage";
-import { FSM_PAGES } from "./utils/common";
+import { FSM_PAGES } from "./utils/constants";
 import TrafficPage from "./routes/TrafficPage";
 import TriviaPage from "./routes/TriviaPage";
 

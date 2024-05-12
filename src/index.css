@@ -12,6 +12,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+#root {
+  width: 100vw;
+}
 
 a {
   font-weight: 500;
@@ -24,6 +27,7 @@ a:hover {
 
 body {
   margin: 0;
+  width: 100vw;
   display: flex;
   justify-content: center;
 

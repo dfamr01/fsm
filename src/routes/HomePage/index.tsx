@@ -1,9 +1,17 @@
 import { Link } from "react-router-dom";
-
 import { styled } from "@mui/material/styles";
 import { Typography, ButtonGroup, Button, Paper, Box } from "@mui/material";
-import { FSM_PAGES } from "../../utils/common";
+
+import { FSM_PAGES } from "../../utils/constants";
 import { theme } from "../../styles/theme";
+import PageWrapper from "../../components/PageWrapper";
+
+const InnerWrap = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 500px;
+`;
 
 const Title = styled("div")`
   margin: 0 auto 5px;
@@ -36,31 +44,31 @@ const ButtonWrap = styled(Button)`
   }
 `;
 
-// stopLight.assign()
 const Home = ({}) => {
   return (
-    <>
-      <Title>Welcome to David's FSM demo</Title>
-      <ButtonGroupWrap
-        orientation="vertical"
-        aria-label="vertical outlined button group"
-      >
-        {Object.values(FSM_PAGES).map(({ caption, to }) => {
-          return (
-            <ButtonWrap
-              key={caption}
-              className={"accountMenu"}
-              component={Link}
-              to={to}
-              variant="contained"
-              color="primary"
-            >
-              {caption}
-            </ButtonWrap>
-          );
-        })}
-      </ButtonGroupWrap>
-    </>
+    <PageWrapper>
+      <InnerWrap>
+        <Title>Welcome to David's FSM demo</Title>
+        <ButtonGroupWrap
+          orientation="vertical"
+          aria-label="vertical outlined button group"
+        >
+          {Object.values(FSM_PAGES).map(({ caption, to }) => {
+            return (
+              <ButtonWrap
+                key={caption}
+                component={Link}
+                to={to}
+                variant="contained"
+                color="primary"
+              >
+                {caption}
+              </ButtonWrap>
+            );
+          })}
+        </ButtonGroupWrap>
+      </InnerWrap>
+    </PageWrapper>
   );
 };
 export default Home;
