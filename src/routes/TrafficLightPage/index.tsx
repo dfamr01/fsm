@@ -9,7 +9,7 @@ import { TRAFFIC_LIGHT_FSM } from "./traffic-light.const";
 const stopLight = createMachine(TRAFFIC_LIGHT_FSM);
 
 const TrafficPage = () => {
-  const [, value] = useMachine(stopLight);
+  const { value } = useMachine(stopLight);
   const [playerRef, setPlayerRef] = useState<DotLottie>();
 
   useEffect(() => {

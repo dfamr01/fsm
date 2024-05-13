@@ -51,7 +51,7 @@ const EndGame = ({ score = 0, onRestartClick = () => {} }) => {
     <>
       <Wrap>
         <Caption>Thanks for playing</Caption>
-        <Score>You scored {score}</Score>
+        <Score>You scored {score} points</Score>
       </Wrap>
       <ButtonWrap>
         <RestartButton variant="contained" onClick={onRestartClick}>

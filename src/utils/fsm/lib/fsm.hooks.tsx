@@ -1,41 +1,62 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Fsm } from "./fsm";
 
-type TReturn<TContext> = [
-  state: string | undefined,
-  value: TContext,
-  transition: (state: string) => void,
-  assign: (value: TContext) => void
-];
+interface IReturn<TContext> {
+  state: string | undefined;
+  value: TContext | undefined;
+  transition: (state: string) => void;
+  assign: (value: TContext) => void;
+  start: () => void;
+  reset: () => void;
+}
 
-export function useMachine<TContext>(fsm: Fsm<TContext>): TReturn<TContext> {
-  const [state, setState] = useState(fsm.state);
-  const [value, setValue] = useState(fsm.value);
+export function useMachine<TContext>(fsm?: Fsm<TContext>): IReturn<TContext> {
+  const [state, setState] = useState(fsm?.state);
+  const [value, setValue] = useState(fsm?.value);
 
   useEffect(() => {
-    const stateUpdate = (state: string) => {
+    const stateUpdate = (state?: string) => {
       setState(state);
     };
 
     const valueUpdate = (value: TContext) => {
       setValue(value);
     };
-
-    fsm.on("state", stateUpdate);
-    fsm.on("value", valueUpdate);
-    return () => {
-      fsm.off("state", stateUpdate);
-      fsm.off("value", valueUpdate);
-    };
+    if (fsm) {
+      stateUpdate(fsm.state);
+      valueUpdate(fsm.value);
+      fsm.on("state", stateUpdate);
+      fsm.on("value", valueUpdate);
+      return () => {
+        fsm.off("state", stateUpdate);
+        fsm.off("value", valueUpdate);
+        setState(undefined);
+        setValue(undefined);
+      };
+    }
   }, [fsm]);
 
-  const transition = (state: string) => {
-    fsm.transition(state);
-  };
+  const transition = useCallback(
+    (state: string) => {
+      fsm?.transition(state);
+    },
+    [fsm]
+  );
 
-  const assign = (value: TContext) => {
-    fsm.assign(value);
-  };
+  const assign = useCallback(
+    (value: TContext) => {
+      fsm?.assign(value);
+    },
+    [fsm]
+  );
 
-  return [state, value, transition, assign];
+  const start = useCallback(() => {
+    fsm?.start();
+  }, [fsm]);
+
+  const reset = useCallback(() => {
+    fsm?.reset();
+  }, [fsm]);
+
+  return { state, value, transition, assign, start, reset };
 }
