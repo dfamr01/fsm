@@ -55,7 +55,13 @@ const TriviaPage = () => {
   };
 
   if (isFetching || !triviaData || !value) {
-    return <CircularProgressLoad />;
+    return (
+      <PageWrapper>
+        <Wrapper>
+          <CircularProgressLoad />
+        </Wrapper>
+      </PageWrapper>
+    );
   }
 
   return (
