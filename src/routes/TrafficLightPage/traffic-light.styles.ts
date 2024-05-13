@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 export const Wrapper = styled(Box)`
   display: flex;
 `;
+
 export const TrafficLightBG = styled(Box)`
   background-color: black;
   border-radius: 10px;

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { Typography, ButtonGroup, Button, Paper, Box } from "@mui/material";
+import { ButtonGroup, Button, Box } from "@mui/material";
 
 import { FSM_PAGES } from "../../utils/constants";
 import { theme } from "../../styles/theme";
@@ -44,7 +44,7 @@ const ButtonWrap = styled(Button)`
   }
 `;
 
-const Home = ({}) => {
+const Home = () => {
   return (
     <PageWrapper>
       <InnerWrap>
@@ -57,7 +57,7 @@ const Home = ({}) => {
             return (
               <ButtonWrap
                 key={caption}
-                component={Link}
+                component={RouterLink}
                 to={to}
                 variant="contained"
                 color="primary"

@@ -9,4 +9,7 @@ export const FSM_PAGES = {
     icon: null,
     caption: "Trivia FSM",
   },
+  triviaEnd: {
+    to: "/trivia-end",
+  },
 };

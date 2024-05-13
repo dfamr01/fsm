@@ -4,7 +4,7 @@ import { cloneDeep, isFunction } from "lodash";
 
 type FsmClassCtx<TContext> = Pick<
   Fsm<TContext>,
-  "start" | "reset" | "transition" | "assign"
+  "start" | "reset" | "transition" | "assign" | "value"
 >;
 
 interface IStates<TContext> {
@@ -19,19 +19,19 @@ export interface IFsmInput<TContext> {
   states: Record<string, IStates<TContext>>;
 }
 
-type TAssign<TContext> = TContext | ((value: TContext | undefined) => TContext);
+type TAssign<TContext> = TContext | ((value: TContext) => TContext);
 
 export class Fsm<TContext> extends EventEmitter {
   private stateMachine;
-  currentState?: string;
-  context: TContext | undefined;
+  currentState: string | undefined;
+  context: TContext;
 
   constructor(stateMachine: IFsmInput<TContext>) {
     super();
 
     this.stateMachine = cloneDeep(stateMachine); //cloning to prevent side-effects
-    this.state = stateMachine.initial;
-    this.assign(this.stateMachine.context);
+    this.context = this.stateMachine.context;
+    this.currentState = this.stateMachine.initial;
   }
 
   start() {
@@ -40,8 +40,8 @@ export class Fsm<TContext> extends EventEmitter {
   }
 
   reset() {
-    this.state = undefined;
-    this.assign(this.stateMachine.context);
+    this.setState(this.stateMachine.initial);
+    this.assign(cloneDeep(this.stateMachine.context));
   }
 
   transition(state: string) {
@@ -51,7 +51,7 @@ export class Fsm<TContext> extends EventEmitter {
       _onExit && _onExit.call(this);
     }
 
-    this.state = state;
+    this.setState(state);
     const currentTransition = this.stateMachine.states[state];
     if (!currentTransition) {
       console.error(`transition: state ${this.currentState} not found`);
@@ -70,26 +70,22 @@ export class Fsm<TContext> extends EventEmitter {
 
   assign(value: TAssign<TContext>) {
     if (isFunction(value)) {
-      this.value = value(this.context);
+      this.context = value(this.context);
     } else {
-      this.value = value;
+      this.context = value;
     }
+    this.emit("value", this.context);
   }
 
   get id() {
     return this.stateMachine.id;
   }
 
-  private set value(newValue) {
-    this.context = newValue;
-    this.emit("value", this.context);
-  }
-
   get value() {
     return this.context;
   }
 
-  private set state(newState) {
+  private setState(newState: string | undefined) {
     this.currentState = newState;
     this.emit("state", newState);
   }

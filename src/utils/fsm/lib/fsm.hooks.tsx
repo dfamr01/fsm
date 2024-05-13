@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
 import { Fsm } from "./fsm";
 
-type TReturnUseMachine<TContext> = [
+type TReturn<TContext> = [
   state: string | undefined,
-  value: TContext | undefined,
+  value: TContext,
   transition: (state: string) => void,
   assign: (value: TContext) => void
 ];
 
-export function useMachine<TContext>(
-  fsm: Fsm<TContext>
-): TReturnUseMachine<TContext> {
+export function useMachine<TContext>(fsm: Fsm<TContext>): TReturn<TContext> {
   const [state, setState] = useState(fsm.state);
   const [value, setValue] = useState(fsm.value);
 
