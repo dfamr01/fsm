@@ -1,7 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import { styled, css } from "@mui/material/styles";
 import PageWrapper from "../../components/PageWrapper";
-
 import { createMachine, useMachine } from "../../utils/fsm";
 
 const data = [
@@ -114,8 +111,7 @@ const trivia = createMachine({
             }
 
             clearTimeout(timer);
-          }, 100);
-          // }, 1500);
+          }, 1500);
 
           return ctx;
         });
@@ -127,59 +123,12 @@ const trivia = createMachine({
   },
 });
 
-import coverImage from "../../assets/cover.png";
 import TriviaOptions from "./components/TriviaOptions";
 import { useEffect, useState } from "react";
-import EndGame from "../TriviaEndGamePage";
-import { useNavigate } from "react-router-dom";
-import { FSM_PAGES } from "../../utils/constants";
-
-export const Wrapper = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: url(${coverImage});
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 10px;
-  height: 100%;
-`;
-
-export const Title = styled(Typography)`
-  font-size: 2rem;
-  color: white;
-`;
-
-export const TriviaWrap = styled(Box)`
-  max-width: 900px;
-  width: 80%;
-  margin: auto;
-`;
-
-export const StatsBar = styled(Box)`
-  margin: 20px 10px;
-  color: black;
-  border: 3px solid #a2a0a1;
-  border-radius: 10px;
-  padding: 20px 15px;
-  background: rgba(255, 255, 255, 0.8);
-  font-weight: bold;
-`;
-
-export const Question = styled(Box)`
-  color: white;
-  border: 3px solid #a2a0a1;
-  border-radius: 15px;
-  padding: 10px 15px;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(5px);
-
-  height: 3rem;
-  margin-bottom: 20px;
-`;
+import EndGame from "./components/TriviaEndGame";
+import { Wrapper, StatsBar, TriviaWrap, Question } from "./trivia-page.styles";
 
 const TriviaPage = () => {
-  const navigate = useNavigate();
   const [state, value, transition] = useMachine(trivia);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -188,12 +137,6 @@ const TriviaPage = () => {
       setSelectedOption("");
     }
   }, [state]);
-
-  useEffect(() => {
-    if (state === "endGame") {
-      navigate(FSM_PAGES.triviaEnd.to);
-    }
-  }, [state, navigate, value.score]);
 
   useEffect(() => {
     trivia.start();
@@ -211,11 +154,15 @@ const TriviaPage = () => {
     }
   };
 
+  const onRestartClick = () => {
+    trivia.start();
+  };
+
   return (
     <PageWrapper>
       <Wrapper>
         {state === "endGame" ? (
-          <EndGame score={value?.score} />
+          <EndGame score={value?.score} onRestartClick={onRestartClick} />
         ) : (
           <>
             <StatsBar>
@@ -223,7 +170,6 @@ const TriviaPage = () => {
         ${(value?.currentQuestion || 0) + 1} of 
         ${value?.totalQuestions} Score: ${value?.score}`}
             </StatsBar>
-            {/* <Title>Welcome To FSM Trivia</Title> */}
             <TriviaWrap>
               <Question>{value?.data[value.currentQuestion].question}</Question>
               <TriviaOptions
