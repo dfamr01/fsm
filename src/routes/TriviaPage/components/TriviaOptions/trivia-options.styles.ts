@@ -1,4 +1,5 @@
-import { Box, Button, ButtonProps, Typography } from "@mui/material";
+import { ButtonProps } from "@mui/base/Button/Button.types";
+import { Box, Button, Typography } from "@mui/material";
 import { styled, css } from "@mui/material/styles";
 
 export const Wrap = styled(Box)`
