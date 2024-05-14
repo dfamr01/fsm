@@ -1,6 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { ButtonGroup, Button, Box } from "@mui/material";
+import { ButtonGroup, Box } from "@mui/material";
 
 import { FSM_PAGES } from "../../utils/constants";
 import { theme } from "../../styles/theme";
@@ -32,7 +32,8 @@ const ButtonGroupWrap = styled(ButtonGroup)`
   }
 `;
 
-const ButtonWrap = styled(Button)`
+const ButtonWrap = styled(RouterLink)`
+  text-align: center;
   background-color: #3c3c3c;
   padding: 15px 5px;
   &:focus,
@@ -57,9 +58,9 @@ const Home = () => {
             return (
               <ButtonWrap
                 key={caption}
-                component={RouterLink}
+                // component={RouterLink}
                 to={to}
-                variant="contained"
+                // variant="contained"
                 color="primary"
               >
                 {caption}
