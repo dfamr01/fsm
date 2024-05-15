@@ -2,6 +2,9 @@
 
 [Visit the site](https://intuit-6r6vjnqpb-davidabus-projects.vercel.app/)
 
-To run  
+**To run**  
 npm install  
 npm run dev
+
+**To run test**  
+npm run test
