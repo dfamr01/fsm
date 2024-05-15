@@ -320,7 +320,7 @@ function print() { __p += __j.call(arguments, '') }
   color: #ffffff;
   border-radius: 10px;
   margin: 20px;
-`,PD=({score:e=0,onRestartClick:t=()=>{}})=>{const n=UC(),r=()=>{n("/")};return se.jsxs(se.Fragment,{children:[se.jsxs(SD,{children:[se.jsx(ED,{children:"Thanks for playing"}),se.jsxs(CD,{children:["You scored ",e," points"]})]}),se.jsxs(bD,{children:[se.jsx(RD,{variant:"contained",onClick:t,children:"Restart Game"}),se.jsx(TD,{color:"secondary",variant:"contained",onClick:r,children:"Back to Home"})]})]})},kD="/Intuit/assets/cover-Bmaelh_H.png",Z_=We(Ri)`
+`,PD=({score:e=0,onRestartClick:t=()=>{}})=>{const n=UC(),r=()=>{n("/")};return se.jsxs(se.Fragment,{children:[se.jsxs(SD,{children:[se.jsx(ED,{children:"Thanks for playing"}),se.jsxs(CD,{children:["You scored ",e," points"]})]}),se.jsxs(bD,{children:[se.jsx(RD,{variant:"contained",onClick:t,children:"Restart Game"}),se.jsx(TD,{color:"secondary",variant:"contained",onClick:r,children:"Back to Home"})]})]})},kD="/assets/cover-Bmaelh_H.png",Z_=We(Ri)`
   display: flex;
   flex-direction: column;
   align-items: center;
