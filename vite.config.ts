@@ -5,7 +5,4 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/",
-  build: {
-    outDir: "dist", // Confirm this line or adjust according to your setup
-  },
 });
