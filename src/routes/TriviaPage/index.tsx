@@ -1,6 +1,5 @@
 import PageWrapper from "../../components/PageWrapper";
 import { useMachine } from "../../utils/fsm";
-
 import TriviaOptions from "./components/TriviaOptions";
 import { useEffect, useState } from "react";
 import EndGame from "./components/TriviaEndGame";
