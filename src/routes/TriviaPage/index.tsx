@@ -29,7 +29,7 @@ const TriviaPage = () => {
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
-    if (state === "showQuestion") {
+    if (["endGame", "showQuestion"].includes(state || "")) {
       setSelectedOption("");
     }
   }, [state]);
