@@ -23,6 +23,7 @@ type TAssign<TContext> = TContext | ((value: TContext) => TContext);
 
 export class Fsm<TContext> extends EventEmitter {
   private stateMachine;
+  private savedStateMachine;
   currentState: string | undefined;
   context: TContext;
 
@@ -30,6 +31,7 @@ export class Fsm<TContext> extends EventEmitter {
     super();
 
     this.stateMachine = cloneDeep(stateMachine); //cloning to prevent side-effects
+    this.savedStateMachine = cloneDeep(stateMachine); //cloning to prevent side-effects
     this.context = this.stateMachine.context;
     this.currentState = this.stateMachine.initial;
   }
@@ -40,6 +42,7 @@ export class Fsm<TContext> extends EventEmitter {
   }
 
   reset() {
+    this.stateMachine = cloneDeep(this.savedStateMachine);
     this.setState(this.stateMachine.initial);
     this.assign(cloneDeep(this.stateMachine.context));
   }
