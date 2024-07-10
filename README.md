@@ -3,13 +3,13 @@
 It uses event-driven programming, state machines, in a robust, and visual ways. FSM provides a powerful and flexible way to manage application and workflow state by allowing developers to model logic as actors and state machines.
 
 This project includes:  
-react with type script  
-react routing  
+React with type script  
+React Router  
 Material UI
-styled component  
+Styled Component  
 Lottie Files - for animation  
-axios  
-tests with - jest and axios-mock-adapter
+Axios  
+Tests with - jest and axios-mock-adapter
 
 [Visit the site](https://fsm1.vercel.app/)
 
