@@ -1,8 +1,8 @@
-import { IFsmInput } from "../../utils/fsm/lib/fsm";
+import { IFsmInput } from "../../utils/fsm/lib/fsm.interface";
 
 const TRANSITION_TIME = 1500;
 
-export const TRAFFIC_LIGHT_FSM = {
+export const TRAFFIC_LIGHT_FSM: IFsmInput<string> = {
   context: "",
   id: "stopLight",
   initial: "green",
@@ -48,4 +48,4 @@ export const TRAFFIC_LIGHT_FSM = {
       _onExit: function () {},
     },
   },
-} as IFsmInput<string>;
+};

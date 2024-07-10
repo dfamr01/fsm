@@ -1,4 +1,5 @@
-import { Fsm, IFsmInput, createMachine } from "../lib/fsm";
+import { Fsm, createMachine } from "../lib/fsm";
+import { IFsmInput } from "../lib/fsm.interface";
 
 interface TestContext {
   value: number;
