@@ -11,7 +11,7 @@ Lottie Files - for animation
 axios
 tests with - jest and axios-mock-adapter
 
-[Visit the site](https://intuit-three.vercel.app/)
+[Visit the site](https://fsm1.vercel.app/)
 
 **To run**  
 npm install  
