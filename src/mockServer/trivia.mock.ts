@@ -1,53 +1,47 @@
 export const TRIVIA_MOCK_DATA = [
   {
-    question: "In which year was Intuit founded?",
-    answer: "c",
-    explanation:
-      "Intuit was founded in 1983 by Scott Cook and Tom Proulx, who initially focused on software to help people manage their personal finances.",
-    options: {
-      a: "1980",
-      b: "1985",
-      c: "1983",
-      d: "1990",
-    },
-  },
-  {
-    question:
-      "Which of the following is one of Intuit's flagship products focused on tax preparation?",
-    answer: "a",
-    explanation:
-      "TurboTax is one of Intuit's flagship products, providing tax preparation software primarily aimed at individuals and small businesses.",
-    options: {
-      a: "TurboTax",
-      b: "Microsoft Excel",
-      c: "Salesforce CRM",
-      d: "Google Sheets",
-    },
-  },
-  {
-    question:
-      "Which Intuit product is primarily used by small businesses for accounting purposes?",
+    question: "What is the capital city of Australia?",
     answer: "b",
     explanation:
-      "QuickBooks is an accounting software developed by Intuit that is widely used by small businesses for managing their finances.",
+      "Canberra is the capital city of Australia, chosen as a compromise between Sydney and Melbourne.",
     options: {
-      a: "Mint",
-      b: "QuickBooks",
-      c: "TurboTax",
-      d: "ProConnect",
+      a: "Sydney",
+      b: "Canberra",
+      c: "Melbourne",
+      d: "Brisbane",
     },
+    difficulty: "easy",
+    category: "Geography",
+    language: "English",
   },
   {
-    question:
-      "Which Intuit product provides personal finance services like budgeting and credit score management?",
-    answer: "d",
+    question: "Who wrote the novel '1984'?",
+    answer: "c",
     explanation:
-      "Mint is an Intuit product that offers free personal finance services like budgeting, tracking expenses, and managing credit scores.",
+      "'1984' is a dystopian novel written by George Orwell, published in 1949.",
     options: {
-      a: "Shopify",
-      b: "Xero",
-      c: "FreshBooks",
-      d: "Mint",
+      a: "Aldous Huxley",
+      b: "J.K. Rowling",
+      c: "George Orwell",
+      d: "Ernest Hemingway",
     },
+    difficulty: "medium",
+    category: "Literature",
+    language: "English",
+  },
+  {
+    question: "What is the chemical symbol for gold?",
+    answer: "a",
+    explanation:
+      "The chemical symbol for gold is Au, derived from the Latin word 'aurum'.",
+    options: {
+      a: "Au",
+      b: "Ag",
+      c: "Fe",
+      d: "Pb",
+    },
+    difficulty: "easy",
+    category: "Science",
+    language: "English",
   },
 ];

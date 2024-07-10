@@ -22,18 +22,19 @@ export function useMachine<TContext>(fsm?: Fsm<TContext>): IReturn<TContext> {
     const valueUpdate = (value: TContext) => {
       setValue(value);
     };
+
     if (fsm) {
       stateUpdate(fsm.state);
       valueUpdate(fsm.value);
       fsm.on("state", stateUpdate);
       fsm.on("value", valueUpdate);
-      return () => {
-        fsm.off("state", stateUpdate);
-        fsm.off("value", valueUpdate);
-        setState(undefined);
-        setValue(undefined);
-      };
     }
+    return () => {
+      fsm?.off("state", stateUpdate);
+      fsm?.off("value", valueUpdate);
+      setState(undefined);
+      setValue(undefined);
+    };
   }, [fsm]);
 
   const transition = useCallback(
