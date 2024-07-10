@@ -1,4 +1,4 @@
-# FSM (Final State Machine) By David
+# FSM (Final State Machine) By David Abu
 
 It uses event-driven programming, state machines, in a robust, and visual ways. FSM provides a powerful and flexible way to manage application and workflow state by allowing developers to model logic as actors and state machines.
 
